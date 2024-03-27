@@ -10,7 +10,7 @@ export const getTransactionsHandler =
       E.right({
         data: [
           {
-            amount: "180,00€",
+            amount: "180,00",
             isCart: true,
             payeeName: "Comune di Milano",
             payeeTaxCode: "XXX",
@@ -34,7 +34,7 @@ export const getTransactionDetailHandler =
         data: {
           carts: [
             {
-              amount: "string",
+              amount: "180,00",
               debtor: { name: "string", taxCode: "string" },
               payee: { name: "string", taxCode: "string" },
               refNumberType: "string",

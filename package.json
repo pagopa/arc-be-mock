@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "export $(grep -v '^#' .env | xargs) && node dist/index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js",
+    "ts-node": "export $(grep -v '^#' .env | xargs) && ts-node src/index.ts",
     "prebuild": "rimraf dist",
     "build": "npm-run-all -s clean lint build:*",
     "build:tsc": "tsc",
@@ -17,7 +19,7 @@
     "clean:yaml-files": "rimraf generated/yaml-file/*.yaml",
     "clean:ts-from-yaml": "rimraf src/generated/payment_manager && rimraf src/generated/pagopa_proxy && rimraf src/generated/pgs",
     "generate": "npm-run-all -s generate:ts-from-yaml:*",
-    "generate:ts-from-yaml:spac-transaction":"shx rm -rf src/generated/transaction && shx mkdir -p src/generated/transaction && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/pagopa-biz-events-service/main/openapi/openapi_io.json --no-strict --out-dir src/generated/transaction"
+    "generate:ts-from-yaml:spac-transaction": "shx rm -rf src/generated/transaction && shx mkdir -p src/generated/transaction && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/pagopa-biz-events-service/main/openapi/openapi_io.json --no-strict --out-dir src/generated/transaction"
   },
   "devDependencies": {
     "@pagopa/eslint-config": "^3.0.0",
@@ -28,10 +30,12 @@
     "@types/uuid": "^9.0.8",
     "@types/winston": "^2.4.4",
     "eslint-plugin-prettier": "^5.1.3",
+    "nodemon": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "shx": "^0.3.4",
+    "ts-node": "^10.9.2",
     "tslint": "^5.20.1",
     "typescript": "^5.1.0"
   },
