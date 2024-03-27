@@ -2,6 +2,8 @@ import { RequestHandler } from "express";
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/lib/Either";
 import { sendResponseWithData, tupleWith } from "../utils/utils";
+import { TransactionListItem } from "../generated/transaction/TransactionListItem";
+import { TransactionDetailResponse } from "../generated/transaction/TransactionDetailResponse";
 
 export const getTransactionsHandler =
   (): RequestHandler =>
@@ -19,7 +21,7 @@ export const getTransactionsHandler =
           },
         ],
       }),
-      // E.map(TransactionResponse.encode),
+      E.map(TransactionListItem.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
     );
@@ -61,7 +63,7 @@ export const getTransactionDetailHandler =
           },
         },
       }),
-      // E.map(TransactionResponseDetail.encode),
+      E.map(TransactionDetailResponse.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
     );
