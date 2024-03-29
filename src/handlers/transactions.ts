@@ -2,8 +2,8 @@ import { RequestHandler } from "express";
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/lib/Either";
 import { sendResponseWithData, tupleWith } from "../utils/utils";
-import { TransactionListItem } from "../generated/transaction/TransactionListItem";
-import { TransactionDetailResponse } from "../generated/transaction/TransactionDetailResponse";
+import { Transaction } from "../generated/arc_be_mock/Transaction";
+import { TransactionDetailResponse } from "../generated/arc_be_mock/TransactionDetailResponse";
 
 export const getTransactionsHandler =
   (): RequestHandler =>
@@ -21,7 +21,7 @@ export const getTransactionsHandler =
           },
         ],
       }),
-      E.map(TransactionListItem.encode),
+      E.map(Transaction.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
     );

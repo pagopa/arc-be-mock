@@ -235,7 +235,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TransactionListItem"
+                    "$ref": "#/components/schemas/Transaction"
                   }
                 }
               }
@@ -530,7 +530,7 @@
           }
         }
       },
-      "TransactionListItem": {
+      "Transaction": {
         "type": "object",
         "properties": {
           "transactionId": {
@@ -549,6 +549,12 @@
             "type": "string"
           },
           "isCart": {
+            "type": "boolean"
+          },
+          "payedByMe": {
+            "type": "boolean"
+          },
+          "registeredToMe": {
             "type": "boolean"
           }
         }
