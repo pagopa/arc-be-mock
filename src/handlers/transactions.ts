@@ -2,8 +2,7 @@ import { RequestHandler } from "express";
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/lib/Either";
 import { sendResponseWithData, tupleWith } from "../utils/utils";
-import { Transaction } from "../generated/arc_be_mock/Transaction";
-import { TransactionDetailResponse } from "../generated/arc_be_mock/TransactionDetailResponse";
+import { TransactionsResponse } from "../generated/arc_be_mock/TransactionsResponse";
 
 export const getTransactionsHandler =
   (): RequestHandler =>
@@ -14,14 +13,16 @@ export const getTransactionsHandler =
           {
             amount: "180,00",
             isCart: true,
+            payedByMe: true,
             payeeName: "Comune di Milano",
             payeeTaxCode: "XXX",
+            registeredToMe: true,
             transactionDate: "27/03/2024",
             transactionId: "1234",
           },
         ],
       }),
-      E.map(Transaction.encode),
+      E.map(TransactionsResponse.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
     );

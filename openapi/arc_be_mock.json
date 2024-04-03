@@ -135,7 +135,7 @@
         "tags": [
           "IO Transactions REST APIs"
         ],
-        "summary": "Retrieve the paged transaction list from biz events.",
+        "summary": "Retrieve the transaction list from biz events.",
         "operationId": "getTransactionList",
         "parameters": [
           {
@@ -233,10 +233,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Transaction"
-                  }
+                  "$ref": "#/components/schemas/TransactionsResponse"
                 }
               }
             }
@@ -530,8 +527,28 @@
           }
         }
       },
+      "TransactionsResponse":  {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction"
+            }
+          }
+        }
+      },
       "Transaction": {
         "type": "object",
+        "required": [
+          "transactionId",
+          "amount",
+          "transactionDate",
+          "isCart",
+          "payedByMe",
+          "registeredToMe"
+        ],
         "properties": {
           "transactionId": {
             "type": "string"
