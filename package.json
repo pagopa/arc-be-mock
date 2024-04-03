@@ -19,7 +19,7 @@
     "clean:yaml-files": "rimraf generated/yaml-file/*.yaml",
     "clean:ts-from-yaml": "rimraf src/generated/payment_manager && rimraf src/generated/pagopa_proxy && rimraf src/generated/pgs",
     "generate": "npm-run-all -s generate:ts-from-yaml:*",
-    "generate:ts-from-yaml:spac-transaction": "shx rm -rf src/generated/arc_be_mock && shx mkdir -p src/generated/arc_be_mock && gen-api-models --api-spec openapi/arc_be_mock.json --no-strict --out-dir src/generated/arc_be_mock"
+    "generate:ts-from-yaml:spac-transaction": "shx rm -rf src/generated/arc_be_mock && shx mkdir -p src/generated/arc_be_mock && gen-api-models --api-spec openapi/arc_be_mock.yml --no-strict --out-dir src/generated/arc_be_mock"
   },
   "devDependencies": {
     "@pagopa/eslint-config": "^3.0.0",
