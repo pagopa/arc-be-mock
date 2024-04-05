@@ -4,9 +4,6 @@ import { logger } from "./logger";
 import { config } from "./config";
 
 logger.info(`Endpoint delay: ${config.ENDPOINT_DELAY}ms`);
-logger.info(
-  `Additional attempts on transaction status check: ${config.CHECK_STATUS_ADDITIONAL_ATTEMPTS}`,
-);
 
 App.newExpressApp()
   .then((app) => {

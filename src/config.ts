@@ -4,7 +4,6 @@ import * as E from "fp-ts/lib/Either";
 import { formatValidationErrors } from "io-ts-reporters";
 
 const Config = t.partial({
-  CHECK_STATUS_ADDITIONAL_ATTEMPTS: t.number,
   ENDPOINT_DELAY: t.number,
 });
 
@@ -18,10 +17,6 @@ const getNumber = (
 const decodeEnv = (
   env: Record<string, string | undefined>,
 ): Record<string, unknown> => ({
-  CHECK_STATUS_ADDITIONAL_ATTEMPTS: getNumber(
-    env,
-    "CHECK_STATUS_ADDITIONAL_ATTEMPTS",
-  ),
   ENDPOINT_DELAY: getNumber(env, "ENDPOINT_DELAY"),
 });
 
