@@ -1,6 +1,7 @@
 import * as express from "express";
 import {
   getTransactionDetailHandler,
+  getTransactionReceiptHandler,
   getTransactionsHandler,
 } from "./handlers/transactions";
 
@@ -33,6 +34,8 @@ export const newExpressApp: () => Promise<Express.Application> = async () => {
 
   router.get("/transactions/", getTransactionsHandler());
   router.get("/transactions/:transactionId", getTransactionDetailHandler());
+
+  router.get("/transaction/receipt/:receiptId", getTransactionReceiptHandler());
 
   return app;
 };

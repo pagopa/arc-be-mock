@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { RequestHandler } from "express";
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/lib/Either";
@@ -87,4 +88,13 @@ export const getTransactionDetailHandler =
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
     );
+  };
+
+export const getTransactionReceiptHandler =
+  (): RequestHandler =>
+  async (_req, res): Promise<void> => {
+    const receipt = fs.readFileSync("public/proof_of_payment.pdf", {
+      encoding: "base64",
+    });
+    res.send(receipt);
   };
