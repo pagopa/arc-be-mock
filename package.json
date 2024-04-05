@@ -44,7 +44,7 @@
     "@pagopa/ts-commons": "^12.5.1",
     "@types/node-fetch": "^2.6.11",
     "cookie-parser": "^1.4.6",
-    "express": "^4.19.1",
+    "express": "^4.19.2",
     "express-interceptor": "^1.2.0",
     "fp-ts": "^2.16.4",
     "http-proxy-middleware": "^2.0.6",
