@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import { RequestHandler } from "express";
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/lib/Either";
@@ -9,6 +8,7 @@ import {
   OriginEnum,
   PaymentMethodEnum,
 } from "../generated/arc_be_mock/InfoTransaction";
+import { TransactionReceiptResponse } from "../generated/arc_be_mock/TransactionReceiptResponse";
 
 export const getTransactionsHandler =
   (): RequestHandler =>
@@ -92,9 +92,21 @@ export const getTransactionDetailHandler =
 
 export const getTransactionReceiptHandler =
   (): RequestHandler =>
-  async (_req, res): Promise<void> => {
-    const receipt = fs.readFileSync("public/proof_of_payment.pdf", {
-      encoding: "base64",
-    });
-    res.send(receipt);
+  async (req, res): Promise<void> => {
+    const pdfUrl = `${req.protocol}://${req.get("host")}/receipt.pdf`;
+    pipe(
+      E.right({
+        attachments: [
+          {
+            content_type: "application/pdf",
+            id: "id_allegato",
+            name: "ricevuta 1",
+            url: pdfUrl,
+          },
+        ],
+      }),
+      E.map(TransactionReceiptResponse.encode),
+      tupleWith(res),
+      E.fold((_) => res.send(500), sendResponseWithData),
+    );
   };

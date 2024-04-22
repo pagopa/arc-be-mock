@@ -9,13 +9,13 @@ App.newExpressApp()
   .then((app) => {
     const listeningPorts = [8080, 8081];
 
-    logger.info("Starting pagopa-checkout-be-mock...");
+    logger.info("Starting pagopa-spac-be-mock...");
 
     for (const port of listeningPorts) {
       const server = http.createServer(app);
       server.listen(port);
     }
-    logger.info("pagopa-spac-be-mock started.");
+    logger.info(`pagopa-spac-be-mock started on ports ${listeningPorts}.`);
   })
   .catch((error) => {
     logger.error(`Error occurred starting server: ${error}`);

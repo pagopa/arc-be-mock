@@ -239,6 +239,70 @@ paths:
         description: This header identifies the call, if not passed it is self-generated. This ID is returned in the response.
         schema:
           type: string
+  /transactions/receipt/{transaction-id}:
+    get:
+      tags:
+        - IO Transactions REST APIs
+      summary: Retrieve the transaction receipt.
+      operationId: getTransactionReceipt
+      parameters:
+        - name: transaction-id
+          in: path
+          description: The id of the transaction.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transaction receipt resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionReceiptResponse'
+        '401':
+          description: Wrong or missing function key.
+          headers:
+            X-Request-Id:
+              description: This header identifies the call
+              schema:
+                type: string
+        '404':
+          description: Not found the transaction.
+          headers:
+            X-Request-Id:
+              description: This header identifies the call
+              schema:
+                type: string
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProblemJson'
+        '429':
+          description: Too many requests.
+          headers:
+            X-Request-Id:
+              description: This header identifies the call
+              schema:
+                type: string
+        '500':
+          description: Service unavailable.
+          headers:
+            X-Request-Id:
+              description: This header identifies the call
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemJson'
+      security:
+        - ApiKey: []
+    parameters:
+      - name: X-Request-Id
+        in: header
+        description: This header identifies the call, if not passed it is self-generated. This ID is returned in the response.
+        schema:
+          type: string
   /info:
     get:
       tags:
@@ -358,6 +422,31 @@ components:
           type: boolean
         registeredToMe:
           type: boolean
+    TransactionReceiptResponse:
+      type: object
+      required:
+       - attachments
+      properties:
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionReceipt'
+    TransactionReceipt:
+      type: object
+      required:
+        - id
+        - content_type
+        - name
+        - url
+      properties:
+        id:
+          type: string
+        content_type:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
     UserDetail:
       type: object
       properties:

@@ -10,6 +10,7 @@ export const newExpressApp: () => Promise<Express.Application> = async () => {
   const router = express.Router();
 
   app.use(express.json());
+  app.use(express.static("public"));
 
   app.use((_req, _res, next) => {
     setTimeout(next, Number(process.env.ENDPOINT_DELAY));
@@ -35,7 +36,10 @@ export const newExpressApp: () => Promise<Express.Application> = async () => {
   router.get("/transactions/", getTransactionsHandler());
   router.get("/transactions/:transactionId", getTransactionDetailHandler());
 
-  router.get("/transaction/receipt/:receiptId", getTransactionReceiptHandler());
+  router.get(
+    "/transaction/receipt/:transactionId",
+    getTransactionReceiptHandler(),
+  );
 
   return app;
 };
