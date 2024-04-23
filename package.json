@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "export $(grep -v '^#' .env | xargs) && node dist/index.js",
-    "dev": "./node_modules/nodemon/bin/nodemon.js",
+    "develop": "./node_modules/nodemon/bin/nodemon.js",
     "ts-node": "export $(grep -v '^#' .env | xargs) && ts-node src/index.ts",
     "prebuild": "rimraf dist",
     "build": "npm-run-all -s clean generate lint build:*",
