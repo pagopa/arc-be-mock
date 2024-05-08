@@ -92,8 +92,8 @@ export const getTransactionDetailHandler =
 
 export const getTransactionReceiptHandler =
   (): RequestHandler =>
-  async (req, res): Promise<void> => {
-    const pdfUrl = `${req.protocol}://${req.get("host")}/receipt.pdf`;
+  async (_req, res): Promise<void> => {
+    const pdfUrl = `https://raw.githubusercontent.com/pagopa/pagopa-arc-be-mock/develop/public/receipt.pdf`;
     pipe(
       E.right({
         attachments: [
