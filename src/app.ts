@@ -37,7 +37,7 @@ export const newExpressApp: () => Promise<Express.Application> = async () => {
   router.get("/transactions/:transactionId", getTransactionDetailHandler());
 
   router.get(
-    "/transaction/receipt/:transactionId",
+    "/transactions/receipt/:transactionId",
     getTransactionReceiptHandler(),
   );
 
