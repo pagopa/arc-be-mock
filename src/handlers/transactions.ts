@@ -54,33 +54,34 @@ export const getTransactionDetailHandler =
   (): RequestHandler =>
   async (req, res): Promise<void> => {
     const { transactionId } = req.params;
+    const usertest = { name: "Matteo Rossi", taxCode: "MTTRSS74B23F205K" };
     pipe(
       E.right({
         carts: [
           {
             amount: "180,00",
-            debtor: { name: "string", taxCode: "string" },
-            payee: { name: "string", taxCode: "string" },
-            refNumberType: "string",
-            refNumberValue: "string",
-            subject: "string",
+            debtor: usertest,
+            payee: usertest,
+            refNumberType: "1234567",
+            refNumberValue: "1234567111111111111",
+            subject: "Bollo auto 2023",
           },
         ],
         infoTransaction: {
-          amount: "string",
-          authCode: "string",
-          fee: "string",
+          amount: "180,00",
+          authCode: "111111111000000",
+          fee: "1,00",
           origin: OriginEnum.INTERNAL,
-          payer: { name: "string", taxCode: "string" },
+          payer: usertest,
           paymentMethod: PaymentMethodEnum.BBT,
-          pspName: "string",
-          rrn: "string",
-          transactionDate: "string",
+          pspName: "Poste SpA",
+          rrn: "0000000000000001",
+          transactionDate: "30/01/2022",
           transactionId,
           walletInfo: {
-            accountHolder: "string",
-            blurredNumber: "string",
-            brand: "string",
+            accountHolder: "Mario Rossi",
+            blurredNumber: "45******",
+            brand: "mastercard",
           },
         },
       }),
