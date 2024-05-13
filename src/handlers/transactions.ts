@@ -20,7 +20,7 @@ export const getTransactionsHandler =
           isCart: true,
           payedByMe: true,
           payeeName: "Comune di Milano",
-          payeeTaxCode: "01199250158",
+          payeeTaxCode: "1199250158",
           registeredToMe: true,
           transactionDate: "27/03/2024",
           transactionId: "1",
