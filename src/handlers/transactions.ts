@@ -10,40 +10,16 @@ import {
 } from "../generated/arc_be_mock/InfoTransaction";
 import { TransactionReceiptResponse } from "../generated/arc_be_mock/TransactionReceiptResponse";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const getTransactionsDataR = require("../mockresponses/getTransactions.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const getTransactionDetailR = require("../mockresponses/getTransactionDetail.json");
+
 export const getTransactionsHandler =
   (): RequestHandler =>
   async (_req, res): Promise<void> => {
     pipe(
-      E.right([
-        {
-          amount: "180,00",
-          isCart: true,
-          payedByMe: true,
-          payeeName: "Comune di Milano",
-          payeeTaxCode: "1199250158",
-          registeredToMe: true,
-          transactionDate: "27/03/2024",
-          transactionId: "1",
-        },
-        {
-          amount: "65,20",
-          isCart: true,
-          payedByMe: false,
-          registeredToMe: true,
-          transactionDate: "10/08/2022",
-          transactionId: "2",
-        },
-        {
-          amount: "199,99",
-          isCart: true,
-          payedByMe: true,
-          payeeName: "Comune di Napoli",
-          payeeTaxCode: "80014890638",
-          registeredToMe: false,
-          transactionDate: "01/01/2001",
-          transactionId: "3",
-        },
-      ]),
+      E.right(getTransactionsDataR),
       E.map(TransactionsResponse.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),
@@ -54,37 +30,18 @@ export const getTransactionDetailHandler =
   (): RequestHandler =>
   async (req, res): Promise<void> => {
     const { transactionId } = req.params;
-    const usertest = { name: "Matteo Rossi", taxCode: "MTTRSS74B23F205K" };
+    const infoTransaction = {
+      ...getTransactionDetailR.infoTransaction,
+      origin: OriginEnum.INTERNAL,
+      paymentMethod: PaymentMethodEnum.BBT,
+      transactionId,
+    };
+    const getTransactionDetailRComputed = {
+      ...getTransactionDetailR,
+      infoTransaction,
+    };
     pipe(
-      E.right({
-        carts: [
-          {
-            amount: "180,00",
-            debtor: usertest,
-            payee: usertest,
-            refNumberType: "1234567",
-            refNumberValue: "1234567111111111111",
-            subject: "Bollo auto 2023",
-          },
-        ],
-        infoTransaction: {
-          amount: "180,00",
-          authCode: "111111111000000",
-          fee: "1,00",
-          origin: OriginEnum.INTERNAL,
-          payer: usertest,
-          paymentMethod: PaymentMethodEnum.BBT,
-          pspName: "Poste SpA",
-          rrn: "0000000000000001",
-          transactionDate: "30/01/2022",
-          transactionId,
-          walletInfo: {
-            accountHolder: "Mario Rossi",
-            blurredNumber: "45******",
-            brand: "mastercard",
-          },
-        },
-      }),
+      E.right(getTransactionDetailRComputed),
       E.map(TransactionDetailResponse.encode),
       tupleWith(res),
       E.fold((_) => res.send(500), sendResponseWithData),

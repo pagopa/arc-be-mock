@@ -1,0 +1,30 @@
+[
+  {
+    "amount": "180,00",
+    "isCart": true,
+    "payedByMe": true,
+    "payeeName": "Comune di Milano",
+    "payeeTaxCode": "1199250158",
+    "registeredToMe": true,
+    "transactionDate": "27/03/2024",
+    "transactionId": "1"
+  },
+  {
+    "amount": "65,20",
+    "isCart": true,
+    "payedByMe": false,
+    "registeredToMe": true,
+    "transactionDate": "10/08/2022",
+    "transactionId": "2"
+  },
+  {
+    "amount": "199,99",
+    "isCart": true,
+    "payedByMe": true,
+    "payeeName": "Comune di Napoli",
+    "payeeTaxCode": "80014890638",
+    "registeredToMe": false,
+    "transactionDate": "01/01/2001",
+    "transactionId": "3"
+  }
+]
