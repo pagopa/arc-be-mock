@@ -4,6 +4,7 @@ import {
   getTransactionReceiptHandler,
   getTransactionsHandler,
 } from "./handlers/transactions";
+import { getOneIdentityHandler } from "./handlers/oneidentity";
 
 export const newExpressApp: () => Promise<Express.Application> = async () => {
   const app = express();
@@ -35,6 +36,7 @@ export const newExpressApp: () => Promise<Express.Application> = async () => {
 
   router.get("/transactions/", getTransactionsHandler());
   router.get("/transactions/:transactionId", getTransactionDetailHandler());
+  router.get("/token/oneidentity", getOneIdentityHandler());
 
   router.get(
     "/transactions/receipt/:transactionId",

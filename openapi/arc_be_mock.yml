@@ -8,6 +8,42 @@ servers:
   - url: http://localhost
     description: Generated server url
 paths:
+  /token/oneidentity:
+    get:
+      tags:
+        - arc auth
+      summary: 'Provide authorization endpoint for exchanging code for token'
+      operationId: getAuthenticationToken
+      parameters:
+        - name: code
+          in: query
+          description: 'The value used for exchanging code for token'
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: 'The value of the state this value is handled by the security component'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Token Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: 'Wrong or missing code or state'
+        '429':
+          description: 'Too many Requests'
+        '503':
+          description: 'Service unavailable'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
   /transactions/{transaction-id}/disable:
     post:
       tags:
@@ -375,6 +411,42 @@ paths:
           type: string
 components:
   schemas:
+    TokenResponse:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          default: Bearer
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        id_token:
+          type: string
+
+    ErrorDTO:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          enum:
+            - generic_error
+            - transaction_not_found_error
+            - receipt_not_found_error
+            - invalid_amount
+            - invalid_date
+            - invalid_request
+          error_description:
+            type: string
+            x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonProperty("error_description")'
     ProblemJson:
       type: object
       properties:
@@ -425,7 +497,7 @@ components:
     TransactionReceiptResponse:
       type: object
       required:
-       - attachments
+        - attachments
       properties:
         attachments:
           type: array
