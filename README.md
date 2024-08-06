@@ -47,3 +47,5 @@ then, you can just use:
 ```shell
 $ yarn start
 ```
+
+If you call for transactionDetails with id '401', you will get an unauthorized error code response. 

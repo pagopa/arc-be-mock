@@ -30,6 +30,7 @@ export const getTransactionDetailHandler =
   (): RequestHandler =>
   async (req, res): Promise<void> => {
     const { transactionId } = req.params;
+
     const infoTransaction = {
       ...getTransactionDetailR.infoTransaction,
       origin: OriginEnum.INTERNAL,
@@ -40,12 +41,16 @@ export const getTransactionDetailHandler =
       ...getTransactionDetailR,
       infoTransaction,
     };
-    pipe(
-      E.right(getTransactionDetailRComputed),
-      E.map(TransactionDetailResponse.encode),
-      tupleWith(res),
-      E.fold((_) => res.send(500), sendResponseWithData),
-    );
+    if (transactionId === "401") {
+      pipe(E.right(res.send(401)));
+    } else {
+      pipe(
+        E.right(getTransactionDetailRComputed),
+        E.map(TransactionDetailResponse.encode),
+        tupleWith(res),
+        E.fold((_) => res.send(500), sendResponseWithData),
+      );
+    }
   };
 
 export const getTransactionReceiptHandler =
