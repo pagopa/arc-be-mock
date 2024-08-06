@@ -1,5 +1,5 @@
 {
-  "access_token": "mockedToken",
-  "token_type": "Bearer",
-  "expires_in": 7200
+  "accessToken": "mockedToken",
+  "tokenType": "Bearer",
+  "expiresIn": 7200
 }
